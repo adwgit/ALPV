@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - REDSHIFT_DB_NAME=${REDSHIFT_DB_NAME}
+      - REDSHIFT_USER=${REDSHIFT_USER}
+      - REDSHIFT_PASSWORD=${REDSHIFT_PASSWORD}
+      - REDSHIFT_HOST=${REDSHIFT_HOST}
+      - REDSHIFT_PORT=${REDSHIFT_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
